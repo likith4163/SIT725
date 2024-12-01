@@ -17,6 +17,7 @@
   "author": "SIT774",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "mongodb": "^6.11.0"
   }
 }

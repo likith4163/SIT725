@@ -1,18 +1,56 @@
-// Require the express web application framework (https://expressjs.com)
-const express = require('express')
+const express = require('express');
+const { MongoClient } = require('mongodb');
 
-// Create a new web application by calling the express function
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-// Tell our application to serve all the files under the `public_html` directory
-app.use(express.static('public_html'))
+const connectionURI = 'mongodb://localhost:27017';
+const client = new MongoClient(connectionURI);
+const dbName = 'sample_mflix';
 
-// Tell our application to listen to requests at port 3000 on the localhost
-app.listen(port, ()=> {
-  // When the application starts, print to the console that our app is
-  // running at http://localhost:3000. Print another message indicating
-  // how to shut the server down.
-  console.log(`Web server running at: http://localhost:${port}`)
-  console.log(`Type Ctrl+C to shut down the web server`)
-})
+let db; 
+
+async function connectToMongoDB() {
+    try {
+        await client.connect();
+        db = client.db(dbName);
+        console.log('Connected successfully to MongoDB');
+    } catch (error) {
+        console.error('Failed to connect to MongoDB:', error);
+        process.exit(1); // Exit if connection fails
+    }
+}
+
+app.get('/api/data', async (req, res) => {
+    try {
+        const collection = db.collection('week4');
+        const documents = await collection.find({}).toArray();
+        res.json(documents); // Send data as JSON response
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.use(express.static('public_html'));
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+    connectToMongoDB(); // Connect to MongoDB when the server starts
+});
+
+
+async function main() {
+    await client.connect();
+    console.log('Connected successfully to server');
+
+    const db = client.db(dbName);
+    const collection = db.collection('week4');
+    const insertDoc = await collection.insertOne({
+        field1: 'value1',
+        field2: 'value2',
+    });
+
+    console.log('Inserted documents =>', insertDoc);
+}
