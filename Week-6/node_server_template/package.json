@@ -5,7 +5,7 @@
   "main": "models/index.js",
   "scripts": {
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "node",
@@ -17,8 +17,9 @@
   "author": "SIT774",
   "license": "ISC",
   "dependencies": {
+    "chai": "^5.1.2",
     "express": "^4.21.1",
+    "mocha": "^11.0.1",
     "mongodb": "^6.11.0"
-  },
-  "devDependencies": {}
+  }
 }
