@@ -1,0 +1,30 @@
+{
+  "name": "web-server",
+  "version": "1.0.0",
+  "description": "Starter express web server template",
+  "main": "models/index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "mocha"
+  },
+  "keywords": [
+    "node",
+    "web",
+    "server",
+    "template",
+    "sit774"
+  ],
+  "author": "SIT774",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "http": "^0.0.1-security",
+    "mocha": "^11.0.1",
+    "mongodb": "^6.11.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "jsdom": "^25.0.1"
+  }
+}
